@@ -1,9 +1,9 @@
 import axiosConfig from "../../config/BaseUrl";
 
-export function ProjectCreate(data) {
-    console.log(data,"data")
+export function ShopCreateservice(data) {
+    console.log(data, "data")
     return new Promise((resolve, reject) => {
-        axiosConfig.post(`/project/create`, data).then((res) => {
+        axiosConfig.post(`/bike/seller/create`, data).then((res) => {
             resolve(res?.data);
         }).catch((err) => {
             reject(err);
@@ -11,9 +11,9 @@ export function ProjectCreate(data) {
     })
 }
 
-export function ProjectUpdate(id, data) {
+export function SkillUpdate(id, data) {
     return new Promise((resolve, reject) => {
-        axiosConfig.put(`/project/update/${id}`, data).then((res) => {
+        axiosConfig.put(`/bike/seller/update`, data).then((res) => {
             resolve(res?.data);
         }).catch((err) => {
             reject(err);
@@ -21,9 +21,9 @@ export function ProjectUpdate(id, data) {
     })
 }
 
-export function ProjectDelete(id) {
+export function SkillDelete(id) {
     return new Promise((resolve, reject) => {
-        axiosConfig.delete(`/project/delete/${id}`).then((res) => {
+        axiosConfig.delete(`/skills/delete/${id}`).then((res) => {
             resolve(res?.data);
         }).catch((err) => {
             reject(err);
@@ -31,9 +31,9 @@ export function ProjectDelete(id) {
     })
 }
 
-export function ProjectSingleDatas(id) {
+export function SkillSingleDatas(id) {
     return new Promise((resolve, reject) => {
-        axiosConfig.get(`/project/getsingle/${id}`).then((res) => {
+        axiosConfig.get(`/skills/single/${id}`).then((res) => {
             resolve(res?.data);
         }).catch((err) => {
             reject(err);
@@ -41,9 +41,9 @@ export function ProjectSingleDatas(id) {
     })
 }
 
-export function ProjectAllData(id) {
+export function SkillAllData(id) {
     return new Promise((resolve, reject) => {
-        axiosConfig.get(`/project/getallprojects/${id}`).then((res) => {
+        axiosConfig.get(`/skills/allskills/${id}`).then((res) => {
             resolve(res?.data);
         }).catch((err) => {
             reject(err);

@@ -29,7 +29,6 @@ function Signup() {
         const datas = {
             email: data?.email,
             password: data?.password,
-            image: "dummy",
             username: data?.username
         }
         dispach(SignupAction(datas, toast, history))
@@ -94,15 +93,7 @@ function Signup() {
                                 {errors.password && <span>password is required</span>}
                             </Form.Text>
                         </Form.Group>
-                        <Form.Group className="mb-3 col-lg-12" controlId="formBasicPassword">
-                            <Form.Label>Image</Form.Label>
-                            <Form.Control type="file" placeholder="image" className='formsection'
-                                {...register('file', { required: true })}
-                            />
-                            <Form.Text className="text-danger mt-3">
-                                {errors.file && <span>file is required</span>}
-                            </Form.Text>
-                        </Form.Group>
+                     
                         <button className='loginbutton mt-4'>
                             Signup
                         </button>

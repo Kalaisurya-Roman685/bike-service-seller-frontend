@@ -2,15 +2,19 @@ import { ChnageForgetpassword, Forgetpassworduser, Loginuser, UserSignup } from 
 export const LoginAction = (data, toast, history) => async (dispatch) => {
     try {
         const response = await Loginuser(data);
-        localStorage.setItem("accesstoken", JSON.stringify(response?.user?.token));
-        localStorage.setItem("id", JSON.stringify(response?.user?.id));
+
+        console.log(response,"response")
+        localStorage.setItem("accesstoken", JSON.stringify(response?.token));
+        localStorage.setItem("id", JSON.stringify(response?.seller?._id));
         setTimeout(() => {
-            history("/portfolio/dashboard");
+            history("/bikeshop/dashboard");
         }, 1000);
         toast.success("User Login Successfully");
     }
     catch (err) {
-        toast.error(err?.response?.data?.message);
+
+        console.log(err, "err")
+        toast.error(err?.response?.data);
     }
 }
 export const SignupAction = (data, toast, history) => async (dispatch) => {

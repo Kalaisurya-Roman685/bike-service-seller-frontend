@@ -15,46 +15,29 @@ function SlideBar({ children, }) {
     const history = useNavigate();
     const routes = [
         {
-            name: "/portfolio/dashboard",
+            name: "/bikeshop/dashboard",
             names: "Dashboard",
             icons: <i class="fa-solid fa-house-user"></i>
 
         },
         {
-            name: "/aboutme",
-            names: "AboutMe",
+            name: "/bikeshop/onboard",
+            names: "OnBoard",
             icons: <i class="fa-solid fa-address-card"></i>
         },
         {
-            name: "/portfolio/skills",
-            names: "Skills",
-            icons: <i class="fa-solid fa-graduation-cap"></i>
+            name: "/bikeshop/shops",
+            names: "Bike Shops",
+            icons: <i class="fa-solid fa-address-card"></i>
         },
-        {
-            name: "/portfolio/projects",
-            names: "Projects",
-            icons: <i class="fa-solid fa-file-signature"></i>
-        },
-        {
-            name: "/clients",
-            names: "Clients",
-            icons: <i class="fa-solid fa-users"></i>
-        },
-        {
-            name: "/contact",
-            names: "ContactUs",
-            icons: <i class="fa-solid fa-phone-volume"></i>
 
-        },
-        {
-            name: "/addsomething",
-            names: "AddSomething",
-            icons: <i class="fa-solid fa-user-plus"></i>
-        }
+
+
+
 
     ]
     const profiles = () => {
-        history("/portfolio/profile");
+        history("/bikeshop/profile");
     }
     const LogoutUser = () => {
         localStorage.removeItem("accesstoken");
@@ -64,29 +47,29 @@ function SlideBar({ children, }) {
         toast.success("Logout User Successfully...");
     }
     return (
-        <motion.div  className='main-slidebar'>
+        <motion.div className='main-slidebar'>
             <motion.div className='inside-slide'>
                 <motion.div className='bottom-slide'>
                     <motion.div className='slides d-none d-lg-block'>
                         <motion.div animate={{ width: toggles ? "200px" : "45px" }} className="slidebar">
                             <motion.div className='bars'>
-                                {toggles && <motion.div onClick={() => history("/profile")}>
+                                {toggles && <motion.div onClick={() => history("/bikeshop/profile")}>
                                     Kalai
                                     {/* <span className='kalai' style={{ cursor: "pointer" }}><img src={kalaiimage} className="kalai-image" /></span> */}
                                 </motion.div>}
                                 <span onClick={tests}><i class="fa-solid fa-bars"></i></span>
                             </motion.div>
                             <div onClick={profiles} className="mb-3 profilesections">
-                                {toggles?<>
+                                {toggles ? <>
                                     <img src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460__340.png" alt="no image"
-                                    className="profileimage"
-                                />
-                                </>:<>
-                                <img src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460__340.png" alt="no image"
-                                    className="profileimage1"
-                                />
+                                        className="profileimage"
+                                    />
+                                </> : <>
+                                    <img src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460__340.png" alt="no image"
+                                        className="profileimage1"
+                                    />
                                 </>}
-                               
+
                             </div>
                             {toggles && <motion.div className='followers'>
                                 <motion.div className='first-follow'>
