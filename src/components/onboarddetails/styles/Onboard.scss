@@ -1,0 +1,14 @@
+@use '../../../sass/abstract/' as *;
+
+.onboardsection
+{
+    width: 100%;
+    height: 100vh;
+    overflow: hidden;
+    .insidesectiononbaord
+    {
+        width: 100%;
+        height: 100%;
+        overflow: auto;
+    }
+}

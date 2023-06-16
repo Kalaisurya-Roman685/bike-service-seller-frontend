@@ -29,3 +29,14 @@ export function ProfilGet(id) {
         })
     })
 }
+
+
+export function ProfilUpdateOnboard(data) {
+    return new Promise((resolve, reject) => {
+        axiosConfig.post(`/profile/update`, data).then((res) => {
+            resolve(res?.data);
+        }).catch((err) => {
+            reject(err);
+        })
+    })
+}

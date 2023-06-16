@@ -1,8 +1,11 @@
 import React from 'react'
+import Createshops from './Createshops'
 
 function BikeshopsCreate() {
     return (
-        <div>BikeshopsCreate</div>
+        <div>
+            <Createshops/>
+        </div>
     )
 }
 

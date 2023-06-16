@@ -1,8 +1,8 @@
-import axiosConfig from "../../config/BaseUrl"
+import axiosConfig from "../../config/BaseUrl";
 
-export function Loginuser(data) {
+export function workerscreate(data) {
     return new Promise((reslove, reject) => {
-        axiosConfig.post(`/auth/seller/login`, data).then((res) => {
+        axiosConfig.post(`/workers/create`, data).then((res) => {
             reslove(res?.data);
         }).catch((err) => {
             reject(err);
@@ -10,9 +10,9 @@ export function Loginuser(data) {
     })
 }
 
-export function UserSignup(data) {
+export function workersedit(data) {
     return new Promise((reslove, reject) => {
-        axiosConfig.post(`/auth/seller/register`, data).then((res) => {
+        axiosConfig.put(`/workers/edit`, data).then((res) => {
             reslove(res?.data);
         }).catch((err) => {
             reject(err);
@@ -20,9 +20,9 @@ export function UserSignup(data) {
     })
 }
 
-export function Forgetpassworduser(data) {
+export function workersgetsingle(data) {
     return new Promise((reslove, reject) => {
-        axiosConfig.post(`/auth/forgetpassword`, data).then((res) => {
+        axiosConfig.post(`/workers/single`, data).then((res) => {
             reslove(res?.data);
         }).catch((err) => {
             reject(err);
@@ -30,9 +30,10 @@ export function Forgetpassworduser(data) {
     })
 }
 
-export function ChnageForgetpassword(token, data) {
+
+export function workersgetall(data) {
     return new Promise((reslove, reject) => {
-        axiosConfig.post(`/auth/reset-password/${token}`, data).then((res) => {
+        axiosConfig.post(`/workers/allworkers`, data).then((res) => {
             reslove(res?.data);
         }).catch((err) => {
             reject(err);
@@ -40,13 +41,13 @@ export function ChnageForgetpassword(token, data) {
     })
 }
 
-export function Updateprofile(data) {
+
+export function deleteworker(data) {
     return new Promise((reslove, reject) => {
-        axiosConfig.post(`/auth/update/profile`, data).then((res) => {
+        axiosConfig.post(`/workers/delete/worker`, data).then((res) => {
             reslove(res?.data);
         }).catch((err) => {
             reject(err);
         })
     })
 }
-

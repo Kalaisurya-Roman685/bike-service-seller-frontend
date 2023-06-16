@@ -41,6 +41,8 @@ function SlideBar({ children, }) {
     }
     const LogoutUser = () => {
         localStorage.removeItem("accesstoken");
+        localStorage.removeItem("id");
+
         setTimeout(() => {
             history("/");
         }, 1000);

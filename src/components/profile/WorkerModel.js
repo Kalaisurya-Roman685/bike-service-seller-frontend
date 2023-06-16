@@ -1,6 +1,9 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import Modal from 'react-bootstrap/Modal';
 import Form from 'react-bootstrap/Form';
+import { Updateprofile } from '../../services/authservices/login_services';
+import { toast } from 'react-toastify';
+import { workerscreate, workersedit, workersgetsingle } from '../../services/worker_services/worker_services';
 
 export const Checkbox = ({ isChecked, label, checkHandler, index }) => {
 
@@ -16,7 +19,7 @@ export const Checkbox = ({ isChecked, label, checkHandler, index }) => {
         </div>
     )
 }
-function WorkerModel({ Modal, show, handleShow, handleClose, Button }) {
+function WorkerModel({ Modal, show, handleShow, handleClose, Button, editid, setShow1 }) {
 
 
     const allToppings = [
@@ -27,49 +30,44 @@ function WorkerModel({ Modal, show, handleShow, handleClose, Button }) {
     ]
 
     const [toppings, setToppings] = useState(allToppings)
-
-
-
     const updateCheckStatus = index => {
-
-
-
         setToppings(
             toppings.map((topping, currentIndex) =>
                 currentIndex === index
                     ? { ...topping, checked: !topping.checked }
                     : topping
             )
-
-
         )
     }
-
 
 
     const [workdetail, setWorkDetail] = useState({
         workName: "",
         contactNo: "",
-        email: "",
+        workeremail: "",
         gender: "",
         address: "",
         alternateContactno: "",
         bankname: "",
         location: "",
         familyMembers: "",
+        accountno: ""
 
     })
 
 
-    const { workName,
+    const {
+        workName,
         contactNo,
-        email,
+        workeremail,
         gender,
         address,
         alternateContactno,
         bankname,
         location,
-        familyMembers } = workdetail;
+        familyMembers,
+        accountno
+    } = workdetail;
 
 
     // workdetail
@@ -79,11 +77,95 @@ function WorkerModel({ Modal, show, handleShow, handleClose, Button }) {
     }
 
     const DataUsers = () => {
-console.log(workdetail,"workdetail")
+        const userids = localStorage.getItem("id");
+
+        const data = {
+            workName: workName,
+            contactNo: contactNo,
+            workeremail: workeremail,
+            gender: gender,
+            address: address,
+            alternateContactno: alternateContactno,
+            bankname: bankname,
+            location: location,
+            familyMembers: familyMembers,
+            workingType: toppings,
+            userId: JSON.parse(userids),
+            accountno: accountno
+        }
+        setShow1(false);
+
+        workerscreate(data).then((res) => {
+            toast.success("kalai suces")
+            setTimeout(() => {
+                handleClose();
+            }, 500);
+            setShow1(true)
+
+            setWorkDetail({});
+        }).catch((err) => {
+            toast.error("error kalai")
+            setShow1(false);
+        })
+    }
+
+
+    useEffect(() => {
+
+        if (editid) {
+            const userId = localStorage.getItem("id")
+
+            const data = {
+                workerid: editid,
+                userId: JSON.parse(userId)
+            }
+            workersgetsingle(data).then((res) => {
+                setWorkDetail(res);
+                console.log(res, "kalais")
+                setToppings(res?.workingType)
+            }).catch((err) => {
+                console.log(err);
+            })
+        }
+
+    }, [editid]);
+
+
+    const Updateworkers = () => {
+        const userids = localStorage.getItem("id");
+
+        const data = {
+            workName: workName,
+            contactNo: contactNo,
+            workeremail: workeremail,
+            gender: gender,
+            address: address,
+            alternateContactno: alternateContactno,
+            bankname: bankname,
+            location: location,
+            familyMembers: familyMembers,
+            workingType: toppings,
+            userId: JSON.parse(userids),
+            accountno: accountno,
+            workerid: editid,
+        }
+        setShow1(false);
+        workersedit(data).then((res) => {
+            toast.success("Edit suces")
+            setTimeout(() => {
+                handleClose();
+            }, 500);
+
+            setShow1(true);
+
+        }).catch((err) => {
+            toast.error("error kalai")
+            setShow1(false);
+        })
     }
     return (
-        <div>
-            <Button variant="primary" onClick={handleShow}>
+        <div className='mt-3'>
+            <Button variant="danger" onClick={handleShow}>
                 Add Workers Details
             </Button>
             <Modal
@@ -107,7 +189,7 @@ console.log(workdetail,"workdetail")
                         <Form.Group className="mb-3" controlId="formBasicPassword">
                             <Form.Label>email</Form.Label>
                             <Form.Control type="email" placeholder="email"
-                                onChange={handleChange} value={email} name="email"
+                                onChange={handleChange} value={workeremail} name="workeremail"
                             />
                         </Form.Group>
                         <Form.Group className="mb-3" controlId="formBasicPassword">
@@ -149,7 +231,7 @@ console.log(workdetail,"workdetail")
                         <Form.Group className="mb-3" controlId="formBasicPassword">
                             <Form.Label>account no</Form.Label>
                             <Form.Control type="text" placeholder="account no"
-                                onChange={handleChange} value={workName} name="workName"
+                                onChange={handleChange} value={accountno} name="accountno"
                             />
                         </Form.Group>
 
@@ -178,16 +260,21 @@ console.log(workdetail,"workdetail")
                                 />
                             ))}
                         </div>
-                        <Button variant="primary" onClick={DataUsers}>
-                            Submit
-                        </Button>
+
                     </Form>
                 </Modal.Body>
                 <Modal.Footer>
                     <Button variant="secondary" onClick={handleClose}>
                         Close
                     </Button>
-                    <Button variant="primary">Understood</Button>
+
+                    {editid ? <>
+
+                        <Button variant="primary" onClick={Updateworkers}>Update Workers</Button>
+                    </> : <>
+                        <Button variant="primary" onClick={DataUsers}>Create Workers</Button>
+
+                    </>}
                 </Modal.Footer>
             </Modal>
         </div>
